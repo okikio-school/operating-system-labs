@@ -1,6 +1,5 @@
 #include "myshell.h"
 #include "kernel_commands.h"
-#include <unistd.h>
 
 volatile sig_atomic_t sigint_received = 0;
 static void sigint_handler() {
