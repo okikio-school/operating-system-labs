@@ -47,3 +47,43 @@ char* rtrim(char *s) {
 char* trim(char *s) {
     return rtrim(ltrim(s));  
 }
+
+/**
+ * concatenateArgs - Concatenates an array of strings into a single string.
+ *
+ * This function takes an array of string pointers (`args`) and concatenates them
+ * into a single string, separating each argument with a space. It iterates over
+ * the `args` array and concatenates each non-NULL string. The function stops concatenation
+ * when a NULL pointer is encountered, which indicates the end of valid strings in the array.
+ * Memory is dynamically allocated for the concatenated string, so it must be freed by the caller
+ * after use to prevent memory leaks. If memory allocation fails, the function returns NULL.
+ *
+ * @param args An array of strings (char pointers).
+ * @return A pointer to the dynamically allocated concatenated string. The caller is responsible
+ *         for freeing this memory. Returns NULL if memory allocation fails.
+ */
+char* concatenateArgs(char *args[]) {
+    // Calculate the total length required for the concatenated string.
+    size_t totalLength = 0;
+    for (size_t i = 0; i < ARG_MAX && args[i] != NULL; ++i) {
+        totalLength += strlen(args[i]) + 1; // +1 for space or end character.
+    }
+
+    // Allocate memory for the concatenated string.
+    char *argsv = malloc(totalLength * sizeof(char));
+    if (argsv == NULL) {
+        perror("Unable to allocate memory for concatenated arguments");
+        return NULL;
+    }
+
+    // Start with an empty string.
+    argsv[0] = '\0';
+
+    // Concatenate the arguments.
+    for (size_t i = 0; i < ARG_MAX && args[i] != NULL; ++i) {
+        strcat(argsv, args[i]);
+        strcat(argsv, " "); // Add a space between arguments.
+    }
+
+    return argsv;
+}

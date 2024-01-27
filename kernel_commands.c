@@ -5,9 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
-#include <linux/limits.h>
 #include <dirent.h>   // Library for directory handling
-#include <errno.h>    // Library for error handling
 
 /**
  * Change the current working directory to the specified path.
